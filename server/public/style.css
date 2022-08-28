@@ -1,0 +1,10 @@
+main { 
+    width: 60%;
+    margin : 2rem auto auto auto
+}
+
+
+.button_shrink{
+    justify-content: center;
+    margin-top: 2rem ;
+}

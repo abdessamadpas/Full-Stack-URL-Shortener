@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shorter</title>
+    <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/minty/bulmaswatch.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <section class="hero is-primary">
+        <div class="hero-body">
+          <p class="title">
+            shoter.com
+          </p>
+          <p class="subtitle">
+            Shortening URLs since 2022
+          </p>
+        </div>
+      </section>
+      <main id = "app">
+        <form @submit.prevent="createPuny()">
+            <div class="field">
+                <label class="label">URL</label>
+                <div class="control">
+                  <input v-model="url" class="input " type="text" placeholder=" e.g. AbdessamadPas@gmail.com ">
+                 
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">name</label>
+                <div class="control">
+                  <input v-model="name" class="input " type="text" placeholder="e.g AbdessamadPas">
+                  <p>typing is: {{ name }}</p>
+                </div>
+              </div>
+              <div class="buttons button_shrink">
+                <button class="button    is-primary" type="submit">PUNIFY </button>
+            </div>
+        </form>
+        
+      </main>
+      
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+<script type="text/javascript" src="main.js"> </script>
+   
+</html> 
