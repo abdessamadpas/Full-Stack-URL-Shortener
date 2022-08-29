@@ -3,6 +3,11 @@ new Vue({
     data: {
       name: '',
       url: '',
+      error:'',
+      
+      isValide : false,
+      isUsed : false,
+      isVisible : false
     },
     methods: {
       createPuny() {
@@ -20,8 +25,34 @@ new Vue({
         }).then(response => {
           return response.json();
         }).then(result => {
-          console.log("result hereeeeeeee",result);
-        });
+       
+          
+              if (result.isUesd) {
+                this.isUsed = true,
+                this.error = result.details.map(detail=> detail.message).join('. ')
+                console.log("isUsed>>>>>>>>>",this.error);
+              } 
+              else if (result.isValide) {
+                this.isValide = true
+                this.error = result.details.map(detail=> detail.message).join('. ')
+                console.log("isValide>>>>>>>>>",this.error);
+              }else{
+                this.isVisible = true
+              }
+          }
+
+                     
+         
+        )
+      },
+
+
+      close(){
+        this.isUsed= false
+
       }
     }
   });
+
+
+  

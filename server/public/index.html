@@ -21,11 +21,11 @@
         </div>
       </section>
       <main id = "app">
-        <form @submit.prevent="createPuny()">
+        <form v-if="!isVisible" @submit.prevent="createPuny()">
             <div class="field">
                 <label class="label">URL</label>
                 <div class="control">
-                  <input v-model="url" class="input " type="text" placeholder=" e.g. AbdessamadPas@gmail.com ">
+                  <input v-model="url" class="input " type="text" placeholder=" e.g.https://gmail.com ">
                  
                 </div>
               </div>
@@ -34,13 +34,23 @@
                 <label class="label">name</label>
                 <div class="control">
                   <input v-model="name" class="input " type="text" placeholder="e.g AbdessamadPas">
-                  <p>typing is: {{ name }}</p>
+                  <div v-if="isUsed" class="notification is-danger is-light " style="margin-top: 2rem;">
+                    <button class="delete" ></button>
+                   error: {{error}} 
+                  </div>
+                  <div v-if="isValide" class="notification is-danger is-light " style="margin-top: 2rem;">
+                    <button class="delete" ></button>
+                    error: {{error}} 
+                  </div>
                 </div>
+               
               </div>
-              <div class="buttons button_shrink">
+              <div  class="buttons button_shrink">
                 <button class="button    is-primary" type="submit">PUNIFY </button>
             </div>
+         
         </form>
+        <h1 v-if='isVisible' class="title">https://wewe.com/{{name}}</h1>
         
       </main>
       

@@ -3,7 +3,7 @@
 // const urls = db.get('urls')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
-
+require('mongoose-type-url');
 
   /*
     {
@@ -22,41 +22,64 @@ const asyncHandler = require('express-async-handler')
     //       }).required()
     // }).with('name', 'url')
        
-    const schema = mongoose.Schema({
+    const schema = new mongoose.Schema({
       name:{
         type : String,
         required: true 
       },
       url:{
-        type : String,
-        required: true 
+      type: String,
+      validate: /https/,
+      required:true
       }
     },{
       timestamps: true
     })
 
-    const Urls = mongoose.model('wewep',schema)
+    const Urls = mongoose.model('urls',schema)
+
+
+
+
     
  const create = asyncHandler (async ( almostPuny)=>{ 
   console.log("create functio work");
   // result.error === null
+    const model = new Urls(almostPuny)
+    console.log("model is >>",model);
+    const error = model.validateSync();
 
+    if(!error){
+      console.log(" ERROR IS >>>", error)
     const url = await Urls.findOne({
       name: almostPuny.name
     });
     console.log("URL check ::::: ", url);
     if (!url) {
-     const added =  await Urls.create(almostPuny)
+      
+          const added =  await Urls.create(almostPuny)
      console.log(added);
       return added ;
+    
+   
+
     } else {
       return Promise.reject({
-        isJoi: true,
+        isUesd: true,
         details: [{
-          message: 'Short name is in use.'
+          message: 'this script already used.'
         }]
       });
     }
+    }else{
+      return Promise.reject({
+        isValide: true,
+        details: [{
+          message: ' urls validation failed:'
+        }]
+      });
+    }
+    
   } )
  
 
