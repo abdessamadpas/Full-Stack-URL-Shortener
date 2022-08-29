@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "express-async-handler": "^1.2.0",
-    "joi": "^17.6.0"
-  }
-}

@@ -1,32 +1,46 @@
-const express = require('express')
+    const express = require('express')
 const morgan = require('morgan')
 const dotenv = require('dotenv').config()
 const asyncHandler = require('express-async-handler')
 const bodyParser= require('body-parser')
 const app = express()
-const urls = require('./db/urls')
-
+const {create} = require('./db/urls')
+const {connectDB} = require('./db/connection')
 
 app.use(morgan("tiny"))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false,}));
+
 app.use(express.static('./public'))
 
 
 app.post('/api/puny/',asyncHandler(async(req, res)=>{
    console.log("enter to post router ");
+   console.log(req.body);
     try {
-        const url = await urls.create(req.body)
+        console.log("create enter");
+        const url = await create(req.body)
     res.json(url)
     } catch (error) {
-        res.status(500).json("error catch  ss",error)
+        console.log("to error bitch");
+        res.status(500) 
+        res.json(error)
        
     }
     
 }))
-
+connectDB()
 
 const port = process.env.PORT || 1337
 app.listen(port ,()=>{
     console.log(`app is listen on ${port}`);
+})
+
+app.use((error, req, res, next)=>{
+    if (error.status) {
+        res.status(error.status)
+    }else{
+    res.json({
+        message : error.mesage,
+        stack : process.env.NODE_ENV === 'productionD' ? '🎂': error.stack
+    })}
 })

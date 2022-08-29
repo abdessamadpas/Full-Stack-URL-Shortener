@@ -1,35 +1,54 @@
-const db = require('./connection')
- const Joi = require('joi')
-const urls = db.get('urls')
+//const db = require('./connection')
+ //const Joi = require('joi')
+// const urls = db.get('urls')
+const mongoose = require('mongoose')
+const asyncHandler = require('express-async-handler')
+
 
   /*
     {
         url: 'http://example.com'
-        name: 'super-catchy'
+        name: 'Abdopas'
     }
     */ 
-
-    const schema = Joi.object({
-        name: Joi.string().token().min(1).max(100).required()
-                .pattern(new RegExp('^[a-zA-Z0-9]$')),
+    // const schema = Joi.object({
+    //     name: Joi.string().token().min(1).max(100).required()
+    //             .pattern(new RegExp('^[a-zA-Z0-9]$')),
     
-        url: Joi.string().uri({
-            scheme: [
-              
-              /https?/
-            ]
-          }).required()
-    }).with('name', 'url')
+    //     url: Joi.string().uri({
+    //         scheme: [
+    //           /https?/
+    //         ]
+    //       }).required()
+    // }).with('name', 'url')
        
+    const schema = mongoose.Schema({
+      name:{
+        type : String,
+        required: true 
+      },
+      url:{
+        type : String,
+        required: true 
+      }
+    },{
+      timestamps: true
+    })
+
+    const Urls = mongoose.model('wewep',schema)
     
- async function create( almostPuny){ const result = Joi.validate(almostPuny, schema);
+ const create = asyncHandler (async ( almostPuny)=>{ 
+  console.log("create functio work");
   // result.error === null
-  if (result.error === null) {
-    const url = await urls.findOne({
+
+    const url = await Urls.findOne({
       name: almostPuny.name
     });
+    console.log("URL check ::::: ", url);
     if (!url) {
-      return urls.insert(almostPuny);
+     const added =  await Urls.create(almostPuny)
+     console.log(added);
+      return added ;
     } else {
       return Promise.reject({
         isJoi: true,
@@ -38,10 +57,8 @@ const urls = db.get('urls')
         }]
       });
     }
-  } else {
-    return Promise.reject(result.error);
-  }
- }
+  } )
+ 
 
  
  module.exports = {
