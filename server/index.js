@@ -43,6 +43,6 @@ app.use((error, req, res, next)=>{
     }else{
     res.json({
         message : error.mesage,
-        stack : process.env.NODE_ENV === 'productionD' ? '🎂': error.stack
+        stack : process.env.NODE_ENV === 'productionD' ? '🎂🚀': error.stack
     })}
 })
