@@ -34,7 +34,9 @@ const port = process.env.PORT || 1337
 app.listen(port ,()=>{
     console.log(`app is listen on ${port}`);
 })
+ 
 
+// handler error middleware
 app.use((error, req, res, next)=>{
     if (error.status) {
         res.status(error.status)
