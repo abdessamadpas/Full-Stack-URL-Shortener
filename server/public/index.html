@@ -34,14 +34,11 @@
                 <label class="label">name</label>
                 <div class="control">
                   <input v-model="name" class="input " type="text" placeholder="e.g AbdessamadPas">
-                  <div v-if="isUsed" class="notification is-danger is-light " style="margin-top: 2rem;">
+                  <div v-if="isError" class="notification is-danger is-light " style="margin-top: 2rem;">
                     <button class="delete" ></button>
                    error: {{error}} 
                   </div>
-                  <div v-if="isValide" class="notification is-danger is-light " style="margin-top: 2rem;">
-                    <button class="delete" ></button>
-                    error: {{error}} 
-                  </div>
+                 
                 </div>
                
               </div>
@@ -50,7 +47,7 @@
             </div>
          
         </form>
-        <h1 v-if='isVisible' class="title">https://wewe.com/{{name}}</h1>
+        <a v-if='isVisible' :href='/ + name' class="title" target="_blank">https://wewe.com/{{name}}</a>
         
       </main>
       

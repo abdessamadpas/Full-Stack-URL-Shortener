@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config()
 const asyncHandler = require('express-async-handler')
 const bodyParser= require('body-parser')
 const app = express()
-const {create} = require('./db/urls')
+const {create, find} = require('./db/urls')
 const {connectDB} = require('./db/connection')
 
 app.use(morgan("tiny"))
@@ -12,6 +12,18 @@ app.use(bodyParser.json())
 
 app.use(express.static('./public'))
 
+app.get('/:name',asyncHandler(async(req, res)=>{
+    console.log("name is >>>>",req.params.name   );
+    const url = await find(req.params.name)
+    console.log("URL is >>>>>>", url);
+    if (url) {
+        res.redirect(url.url)
+    }else{
+        res.redirect(`/404.html?name=${req.params.name}`)
+    }
+  
+    url
+}))
 
 app.post('/api/puny/',asyncHandler(async(req, res)=>{
    console.log("enter to post router ");
@@ -28,6 +40,9 @@ app.post('/api/puny/',asyncHandler(async(req, res)=>{
     }
     
 }))
+
+// Connected to db
+
 connectDB()
 
 const port = process.env.PORT || 1337

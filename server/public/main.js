@@ -5,8 +5,7 @@ new Vue({
       url: '',
       error:'',
       
-      isValide : false,
-      isUsed : false,
+      isError : false,
       isVisible : false
     },
     methods: {
@@ -27,13 +26,8 @@ new Vue({
         }).then(result => {
        
           
-              if (result.isUesd) {
-                this.isUsed = true,
-                this.error = result.details.map(detail=> detail.message).join('. ')
-                console.log("isUsed>>>>>>>>>",this.error);
-              } 
-              else if (result.isValide) {
-                this.isValide = true
+               if (result.isError) {
+                this.isError = true
                 this.error = result.details.map(detail=> detail.message).join('. ')
                 console.log("isValide>>>>>>>>>",this.error);
               }else{

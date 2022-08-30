@@ -36,8 +36,14 @@ require('mongoose-type-url');
       timestamps: true
     })
 
-    const Urls = mongoose.model('urls',schema)
+    const Urls = mongoose.model('new_ urls',schema)
 
+    const find = asyncHandler (async ( almostPuny)=>{
+       return Urls.findOne({
+        name: almostPuny
+      });
+
+     })
 
 
 
@@ -60,12 +66,11 @@ require('mongoose-type-url');
           const added =  await Urls.create(almostPuny)
      console.log(added);
       return added ;
-    
    
 
     } else {
       return Promise.reject({
-        isUesd: true,
+        isError: true,
         details: [{
           message: 'this script already used.'
         }]
@@ -73,7 +78,7 @@ require('mongoose-type-url');
     }
     }else{
       return Promise.reject({
-        isValide: true,
+        isError: true,
         details: [{
           message: ' urls validation failed:'
         }]
@@ -85,5 +90,5 @@ require('mongoose-type-url');
 
  
  module.exports = {
-    create
+    create, find
  }
