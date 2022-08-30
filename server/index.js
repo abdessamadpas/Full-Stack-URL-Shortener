@@ -13,9 +13,8 @@ app.use(bodyParser.json())
 app.use(express.static('./public'))
 
 app.get('/:name',asyncHandler(async(req, res)=>{
-    console.log("name is >>>>",req.params.name   );
+    
     const url = await find(req.params.name)
-    console.log("URL is >>>>>>", url);
     if (url) {
         res.redirect(url.url)
     }else{
@@ -26,10 +25,7 @@ app.get('/:name',asyncHandler(async(req, res)=>{
 }))
 
 app.post('/api/puny/',asyncHandler(async(req, res)=>{
-   console.log("enter to post router ");
-   console.log(req.body);
     try {
-        console.log("create enter");
         const url = await create(req.body)
     res.json(url)
     } catch (error) {

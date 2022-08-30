@@ -4,7 +4,6 @@ new Vue({
       name: '',
       url: '',
       error:'',
-      
       isError : false,
       isVisible : false
     },
@@ -29,21 +28,16 @@ new Vue({
                if (result.isError) {
                 this.isError = true
                 this.error = result.details.map(detail=> detail.message).join('. ')
-                console.log("isValide>>>>>>>>>",this.error);
               }else{
                 this.isVisible = true
               }
           }
 
-                     
-         
         )
       },
 
-
       close(){
         this.isUsed= false
-
       }
     }
   });

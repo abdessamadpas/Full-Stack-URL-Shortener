@@ -49,22 +49,16 @@ require('mongoose-type-url');
 
     
  const create = asyncHandler (async ( almostPuny)=>{ 
-  console.log("create functio work");
   // result.error === null
     const model = new Urls(almostPuny)
-    console.log("model is >>",model);
     const error = model.validateSync();
 
     if(!error){
-      console.log(" ERROR IS >>>", error)
     const url = await Urls.findOne({
       name: almostPuny.name
     });
-    console.log("URL check ::::: ", url);
     if (!url) {
-      
-          const added =  await Urls.create(almostPuny)
-     console.log(added);
+      const added =  await Urls.create(almostPuny)
       return added ;
    
 
