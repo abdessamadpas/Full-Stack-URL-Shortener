@@ -29,7 +29,7 @@ app.post('/api/puny/',asyncHandler(async(req, res)=>{
         const url = await create(req.body)
     res.json(url)
     } catch (error) {
-        console.log("to error bitch");
+        console.log("to error bitch hmm");
         res.status(500) 
         res.json(error)
        
